@@ -1,0 +1,16 @@
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Entregas.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Carta.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/protocol/RequestMessage.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Funcionario.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/client/ClientProxy.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/LojaCorreios.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/protocol/MessageSerializer.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/server/ServerDispatcher.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/protocol/ReplyMessage.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Telegrama.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Encomenda.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/EntregasImpl.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/server/ServidorCorreios.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/domain/Correspondencia.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/protocol/RemoteObjectRef.java
+/home/phs/Desktop/sistemas-distribuidos-2025.1/trabalho-02/demo/src/main/java/com/app/client/ClienteCorreios.java

@@ -1,14 +1,55 @@
-import java.rmi.Naming;
-import java.util.Scanner;
+package com.app.client;
+
+import java.net.InetAddress;
 import java.util.List;
+import java.util.Scanner;
+
+import com.app.domain.Carta;
+import com.app.domain.Correspondencia;
+import com.app.domain.Encomenda;
+import com.app.domain.Telegrama;
+import com.app.protocol.MessageSerializer;
+import com.app.protocol.RemoteObjectRef;
 
 public class ClienteCorreios {
+    private ClientProxy proxy;
+    private RemoteObjectRef serverRef;
+
+    public ClienteCorreios() throws Exception {
+        this.proxy = new ClientProxy();
+        this.serverRef = new RemoteObjectRef(
+            "EntregasService", 
+            InetAddress.getByName("localhost"), 
+            9999
+        );
+    }
+
+    public void registrarCorrespondencia(Correspondencia c) throws Exception {
+        byte[] args = MessageSerializer.serialize(c);
+        proxy.doOperation(serverRef, "registrarCorrespondencia", args);
+    }
+
+    public double consultarPreco(String codigo) throws Exception {
+        byte[] args = MessageSerializer.serialize(codigo);
+        byte[] result = proxy.doOperation(serverRef, "consultarPreco", args);
+        return MessageSerializer.deserialize(result, Double.class);
+    }
+
+    public List<Correspondencia> listarCorrespondencias() throws Exception {
+        byte[] result = proxy.doOperation(serverRef, "listarCorrespondencias", new byte[0]);
+        return MessageSerializer.deserialize(result, List.class);
+    }
+
+    public boolean entregar(String codigo) throws Exception {
+        byte[] args = MessageSerializer.serialize(codigo);
+        byte[] result = proxy.doOperation(serverRef, "entregar", args);
+        return MessageSerializer.deserialize(result, Boolean.class);
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         try {
-            // Localiza o serviço remoto
-            Entregas servico = (Entregas) Naming.lookup("rmi://localhost:1099/EntregasService");
+            ClienteCorreios cliente = new ClienteCorreios();
 
             while (true) {
                 System.out.println("\n--- MENU ---");
@@ -35,7 +76,7 @@ public class ClienteCorreios {
                         boolean selada = sc.nextBoolean();
                         sc.nextLine();
                         Carta carta = new Carta(codC, destC, endC, selada);
-                        servico.registrarCorrespondencia(carta);
+                        cliente.registrarCorrespondencia(carta);
                         System.out.println("Carta registrada.");
                         break;
                     case 2:
@@ -49,7 +90,7 @@ public class ClienteCorreios {
                         double peso = sc.nextDouble();
                         sc.nextLine();
                         Encomenda encomenda = new Encomenda(codE, destE, endE, peso);
-                        servico.registrarCorrespondencia(encomenda);
+                        cliente.registrarCorrespondencia(encomenda);
                         System.out.println("Encomenda registrada.");
                         break;
                     case 3:
@@ -63,26 +104,25 @@ public class ClienteCorreios {
                         int palavras = sc.nextInt();
                         sc.nextLine();
                         Telegrama telegrama = new Telegrama(codT, destT, endT, palavras);
-                        servico.registrarCorrespondencia(telegrama);
+                        cliente.registrarCorrespondencia(telegrama);
                         System.out.println("Telegrama registrado.");
                         break;
                     case 4:
-                        List<Correspondencia> lista = servico.listarCorrespondencias();
-                        for (Correspondencia c : lista) {
-                            System.out.println("[" + c.getClass().getSimpleName() + "] Código: " + c.codigo
-                                    + ", Destinatário: " + c.destinatario);
+                        List<Correspondencia> lista = cliente.listarCorrespondencias();
+                        for (Object obj : lista) {
+                            System.out.println("Correspondência: " + obj.toString());
                         }
                         break;
                     case 5:
                         System.out.print("Informe o código: ");
                         String codigoPreco = sc.nextLine();
-                        double preco = servico.consultarPreco(codigoPreco);
+                        double preco = cliente.consultarPreco(codigoPreco);
                         System.out.println("Preço: R$" + preco);
                         break;
                     case 6:
                         System.out.print("Informe o código da correspondência a entregar: ");
                         String codigoEntregar = sc.nextLine();
-                        boolean sucesso = servico.entregar(codigoEntregar);
+                        boolean sucesso = cliente.entregar(codigoEntregar);
                         System.out.println(sucesso ? "Entregue com sucesso." : "Código não encontrado.");
                         break;
                     case 0:

@@ -1,3 +1,4 @@
+package com.app.domain;
 import java.io.Serializable;
 
 public abstract class Correspondencia implements Serializable {
@@ -12,4 +13,8 @@ public abstract class Correspondencia implements Serializable {
     }
 
     public abstract double calcularPreco();
+    
+    public String getCodigo() { return codigo; }
+    public String getDestinatario() { return destinatario; }
+    public String getEndereco() { return endereco; }
 }

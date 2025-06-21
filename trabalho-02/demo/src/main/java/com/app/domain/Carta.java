@@ -1,3 +1,4 @@
+package com.app.domain;
 public class Carta extends Correspondencia {
     private boolean selada;
 
@@ -10,4 +11,6 @@ public class Carta extends Correspondencia {
     public double calcularPreco() {
         return selada ? 2.00 : 1.50;
     }
+    
+    public boolean isSelada() { return selada; }
 }

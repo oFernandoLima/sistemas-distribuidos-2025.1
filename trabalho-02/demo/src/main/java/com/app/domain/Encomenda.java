@@ -1,3 +1,4 @@
+package com.app.domain;
 public class Encomenda extends Correspondencia {
     private double peso;
 
@@ -10,4 +11,6 @@ public class Encomenda extends Correspondencia {
     public double calcularPreco() {
         return peso * 5.0;
     }
+    
+    public double getPeso() { return peso; }
 }

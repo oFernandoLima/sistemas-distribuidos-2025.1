@@ -1,3 +1,4 @@
+package com.app.domain;
 public class Telegrama extends Correspondencia {
     private int numeroPalavras;
 
@@ -10,4 +11,6 @@ public class Telegrama extends Correspondencia {
     public double calcularPreco() {
         return numeroPalavras * 0.50;
     }
+    
+    public int getNumeroPalavras() { return numeroPalavras; }
 }
