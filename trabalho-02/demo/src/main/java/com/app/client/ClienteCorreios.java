@@ -18,10 +18,9 @@ public class ClienteCorreios {
     public ClienteCorreios() throws Exception {
         this.proxy = new ClientProxy();
         this.serverRef = new RemoteObjectRef(
-            "EntregasService", 
-            InetAddress.getByName("localhost"), 
-            9999
-        );
+                "EntregasService",
+                InetAddress.getByName("localhost"),
+                9999);
     }
 
     public void registrarCorrespondencia(Correspondencia c) throws Exception {
@@ -72,8 +71,11 @@ public class ClienteCorreios {
                         String destC = sc.nextLine();
                         System.out.print("Endereço: ");
                         String endC = sc.nextLine();
-                        System.out.print("Está selada (true/false)? ");
-                        boolean selada = sc.nextBoolean();
+                        System.out.print("Está selada (S/N)? ");
+                        String resposta = sc.nextLine().trim().toLowerCase();
+                        boolean selada = resposta.equals("s") || resposta.equals("sim") ||
+                                resposta.equals("y") || resposta.equals("yes") ||
+                                resposta.equals("true") || resposta.equals("1");
                         sc.nextLine();
                         Carta carta = new Carta(codC, destC, endC, selada);
                         cliente.registrarCorrespondencia(carta);
