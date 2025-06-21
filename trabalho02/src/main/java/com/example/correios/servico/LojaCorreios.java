@@ -1,6 +1,10 @@
+package com.example.correios.servico;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.correios.modelo.Correspondencia;
 
 public class LojaCorreios implements Serializable {
     private String nome;

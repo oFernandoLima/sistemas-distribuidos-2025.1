@@ -1,5 +1,9 @@
+package com.example.correios.cliente;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.Naming;
+
+import com.example.correios.servico.EntregasImpl;
 
 public class ServidorCorreios {
 

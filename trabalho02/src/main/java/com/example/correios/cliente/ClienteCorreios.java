@@ -1,6 +1,11 @@
+package com.example.correios.cliente;
+
 import java.rmi.Naming;
 import java.util.Scanner;
 import java.util.List;
+
+import com.example.correios.modelo.*;
+import com.example.correios.servico.Entregas;
 
 public class ClienteCorreios {
 
@@ -69,8 +74,8 @@ public class ClienteCorreios {
                     case 4:
                         List<Correspondencia> lista = servico.listarCorrespondencias();
                         for (Correspondencia c : lista) {
-                            System.out.println("[" + c.getClass().getSimpleName() + "] Código: " + c.codigo
-                                    + ", Destinatário: " + c.destinatario);
+                            System.out.println("[" + c.getClass().getSimpleName() + "] Código: " + c.getCodigo()
+                                    + ", Destinatário: " + c.getDestinatario());
                         }
                         break;
                     case 5:
