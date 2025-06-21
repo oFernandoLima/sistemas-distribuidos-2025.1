@@ -1,12 +1,14 @@
 # 📦 Sistema de Controle de Volumes dos Correios
 
-**Sistemas Distribuídos com RMI e Middleware UDP** — UFC Campus Quixadá
+**Sistemas Distribuídos com Middleware UDP** — UFC Campus Quixadá
 
 ## 🧾 Descrição
 
-Sistema completo de controle de correspondências dos Correios implementado com **duas arquiteturas distintas**:
-- **RMI Tradicional**: Comunicação via Java RMI Registry
-- **Middleware UDP**: Comunicação via UDP com serialização JSON personalizada
+Sistema completo de controle de correspondências dos Correios implementado com **arquitetura Middleware UDP**:
+- **Comunicação:** UDP na porta 5052
+- **Serialização:** JSON com Gson + TypeAdapter personalizado para polimorfismo
+- **Pattern:** Request/Reply com IDs de requisição únicos
+- **Transparência:** ClientProxy encapsula toda a complexidade de comunicação
 
 O sistema simula funcionalidades reais dos Correios: envio, consulta de preços, listagem e entrega de volumes (cartas, encomendas e telegramas).
 
@@ -20,19 +22,14 @@ O sistema simula funcionalidades reais dos Correios: envio, consulta de preços,
 
 ---
 
-## 🏗️ Arquiteturas Implementadas
+## 🏗️ Arquitetura Middleware UDP
 
-### 🔷 RMI Tradicional
-- **Comunicação:** Java RMI na porta 1099
-- **Registry:** RMI Registry local
-- **Serialização:** Java nativa
-- **Interface:** `Entregas` com métodos remotos
-
-### 🔶 Middleware UDP
 - **Comunicação:** UDP na porta 5052
 - **Serialização:** JSON com Gson + TypeAdapter personalizado
 - **Pattern:** Request/Reply com IDs de requisição
 - **Polimorfismo:** Suporte completo para hierarquia `Correspondencia`
+- **Transparência:** ClientProxy oferece interface transparente para o cliente
+- **Robustez:** Gestão automática de endereços e portas UDP
 
 ---
 
@@ -41,8 +38,7 @@ O sistema simula funcionalidades reais dos Correios: envio, consulta de preços,
 ### 📦 Organização dos Pacotes
 
 - **modelo**: Classes do domínio (`Correspondencia`, `Carta`, `Encomenda`, `Telegrama`)
-- **servico**: Interface e implementação dos serviços (`Entregas`, `EntregasImpl`, `LojaCorreios`)
-- **cliente**: Aplicações cliente e servidor RMI (`ClienteCorreios`, `ServidorCorreios`)
+- **servico**: Serviço de entregas (`EntregasService`, `LojaCorreios`)
 - **middleware.core**: Serialização JSON e servidor UDP (`Marshaller`, `CorrespondenciaTypeAdapter`, `ServidorMiddleware`)
 - **middleware.proxy**: Proxy e cliente de teste UDP (`ClientProxy`, `TesteClientProxy`)
 - **middleware.transport**: Estruturas de requisição/resposta e transporte UDP (`Request`, `Reply`, `RemoteObjectRef`, `RequestHandler`)
@@ -77,7 +73,7 @@ cd d:/UFC/SDs/sistemas-distribuidos-2025.1/trabalho02
 mvn compile
 ```
 
-### 🔶 Middleware UDP (Recomendado)
+### 🔶 Middleware UDP
 
 1. **Servidor Middleware:**
 ```bash
@@ -91,30 +87,13 @@ mvn exec:java -Dexec.mainClass="com.example.middleware.proxy.TesteClientProxy"
 ```
 > Executa demonstração: registra carta e lista correspondências
 
-### 🔷 Sistema RMI Tradicional
-
-1. **Servidor RMI:**
-```bash
-mvn exec:java -Dexec.mainClass="com.example.correios.cliente.ServidorCorreios"
-```
-> Inicia RMI Registry (porta 1099) e registra serviço como `EntregasService`
-
-2. **Cliente RMI:**
-```bash
-mvn exec:java -Dexec.mainClass="com.example.correios.cliente.ClienteCorreios"
-```
-> Interface de texto interativa com menu de opções
-
 ---
 
 ## 🔗 Comunicação Remota
 
-### RMI
-- **Passagem por valor:** Entidades POJO (Carta, Encomenda, Telegrama)
-- **Passagem por referência:** Objeto remoto `Entregas`
-- **Transparência:** Cliente invoca métodos como se fossem locais
-
 ### Middleware UDP
-- **Serialização:** JSON com suporte a polimorfismo via TypeAdapter
-- **Request/Reply:** Pattern assíncrono com IDs únicos
-- **Transparência:** ClientProxy encapsula detalhes de comunicação
+- **Serialização:** JSON com suporte a polimorfismo via TypeAdapter personalizado
+- **Request/Reply:** Pattern assíncrono com IDs únicos para correlação
+- **Transparência:** ClientProxy encapsula todos os detalhes de comunicação UDP
+- **Polimorfismo Distribuído:** Mantém hierarquia de classes através da rede
+- **Gestão Automática:** Captura e resposta automática de endereços/portas UDP

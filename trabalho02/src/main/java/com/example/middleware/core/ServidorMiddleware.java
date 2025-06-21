@@ -1,8 +1,7 @@
 package com.example.middleware.core;
 
 import com.example.correios.modelo.Correspondencia;
-import com.example.correios.servico.Entregas;
-import com.example.correios.servico.EntregasImpl;
+import com.example.correios.servico.EntregasService;
 import com.example.middleware.transport.*;
 
 public class ServidorMiddleware {
@@ -10,8 +9,8 @@ public class ServidorMiddleware {
         System.out.println("Middleware aguardando requisições...");
         RequestHandler handler = new RequestHandler(5052);
 
-        // Suponha que temos o objeto remoto disponível:
-        Entregas servico = new EntregasImpl("Correios Middleware");
+        // Serviço de entregas usando apenas UDP
+        EntregasService servico = new EntregasService("Correios Middleware");
         while (true) {
             byte[] requestBytes = handler.getRequest();
             Request req = Marshaller.unmarshall(requestBytes, Request.class);

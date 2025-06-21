@@ -19,7 +19,6 @@ public class CorrespondenciaTypeAdapter implements JsonSerializer<Correspondenci
             throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
-        // Verifica se tem o campo "type" (nosso formato)
         if (jsonObject.has("type")) {
             String type = jsonObject.get("type").getAsString();
             JsonElement element = jsonObject.get("properties");
@@ -39,7 +38,6 @@ public class CorrespondenciaTypeAdapter implements JsonSerializer<Correspondenci
                 throw new JsonParseException(e);
             }
         } else {
-            // Tenta determinar o tipo pela presença de campos específicos
             if (jsonObject.has("selada")) {
                 return context.deserialize(jsonObject, Carta.class);
             } else if (jsonObject.has("peso")) {

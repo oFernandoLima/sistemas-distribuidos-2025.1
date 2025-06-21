@@ -9,7 +9,7 @@ import com.example.middleware.transport.*;
 public class ClientProxy {
     public static byte[] doOperation(RemoteObjectRef o, int methodId, byte[] arguments)
             throws IOException, ClassNotFoundException {
-        Request req = new Request(1, o, methodId, arguments); // Added requestId parameter
+        Request req = new Request(1, o, methodId, arguments);
         byte[] reqData = Marshaller.marshall(req);
         DatagramSocket socket = new DatagramSocket();
         InetAddress serverAddress = InetAddress.getByName("localhost");
@@ -22,7 +22,7 @@ public class ClientProxy {
         DatagramPacket responsePacket = new DatagramPacket(buffer, buffer.length);
         socket.receive(responsePacket);
 
-        Reply reply = Marshaller.unmarshall(responsePacket.getData(), Reply.class); // Added Reply.class parameter
+        Reply reply = Marshaller.unmarshall(responsePacket.getData(), Reply.class);
         socket.close();
         return reply.result;
     }
