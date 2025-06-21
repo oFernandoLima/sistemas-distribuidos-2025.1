@@ -81,19 +81,81 @@ mvn exec:java -Dexec.mainClass="com.example.middleware.core.ServidorMiddleware"
 ```
 > Servidor UDP aguardando na porta 5052
 
-2. **Cliente de Teste:**
+2. **Cliente Interativo (Recomendado):**
+```bash
+mvn exec:java -Dexec.mainClass="com.example.correios.app.ClienteInterativo"
+```
+> Interface interativa completa pelo terminal com menu de opções
+
+3. **Demonstração Automatizada:**
+```bash
+mvn exec:java -Dexec.mainClass="com.example.correios.app.DemoCliente"
+```
+> Executa demonstração completa: registra múltiplas correspondências, lista, consulta preços e entrega
+
+4. **Cliente de Teste Simples:**
 ```bash
 mvn exec:java -Dexec.mainClass="com.example.middleware.proxy.TesteClientProxy"
 ```
-> Executa demonstração: registra carta e lista correspondências
+> Teste básico: registra uma carta e lista correspondências
 
 ---
 
-## 🔗 Comunicação Remota
+## 🖥️ Cliente Interativo
 
-### Middleware UDP
-- **Serialização:** JSON com suporte a polimorfismo via TypeAdapter personalizado
-- **Request/Reply:** Pattern assíncrono com IDs únicos para correlação
-- **Transparência:** ClientProxy encapsula todos os detalhes de comunicação UDP
-- **Polimorfismo Distribuído:** Mantém hierarquia de classes através da rede
-- **Gestão Automática:** Captura e resposta automática de endereços/portas UDP
+O **ClienteInterativo** oferece uma interface completa pelo terminal para interagir com o sistema de correios:
+
+### 📋 Funcionalidades do Menu
+- **1️⃣ Registrar Correspondência:** Cadastro interativo de cartas, encomendas e telegramas
+- **2️⃣ Listar Correspondências:** Visualização em tabela formatada com preços
+- **3️⃣ Consultar Preço:** Busca por código específico com regras de preço
+- **4️⃣ Entregar Correspondência:** Marca como entregue e remove do sistema
+- **0️⃣ Sair:** Encerra o cliente
+
+### 🎯 Exemplo de Uso
+```bash
+# 1. Inicie o servidor middleware
+mvn exec:java -Dexec.mainClass="com.example.middleware.core.ServidorMiddleware"
+
+# 2. Em outro terminal, execute o cliente interativo
+mvn exec:java -Dexec.mainClass="com.example.correios.app.ClienteInterativo"
+
+# 3. Siga o menu interativo para usar todas as funcionalidades
+```
+
+### 📊 Recursos do Cliente
+- **Interface Amigável:** Emojis e formatação visual clara
+- **Validação de Entrada:** Tratamento de erros e entradas inválidas
+- **Tabelas Formatadas:** Listagem organizada com alinhamento automático
+- **Cálculo Automático:** Exibição de preços individuais e totais
+- **Truncamento Inteligente:** Textos longos são cortados adequadamente
+
+### 💡 Exemplo de Interação
+```
+📋 MENU PRINCIPAL:
+1️⃣  Registrar Correspondência
+2️⃣  Listar Correspondências
+3️⃣  Consultar Preço
+4️⃣  Entregar Correspondência
+0️⃣  Sair
+➡️  Escolha uma opção: 1
+
+📝 REGISTRAR NOVA CORRESPONDÊNCIA
+Tipos disponíveis:
+1 - Carta
+2 - Encomenda
+3 - Telegrama
+➡️  Tipo: 1
+📮 Código: CARTA001
+📫 Destinatário: João Silva
+🏠 Endereço: Rua das Flores, 123
+📧 É selada? (s/n): s
+
+✅ Correspondência registrada com sucesso!
+📄 Detalhes:
+  • Código: CARTA001
+  • Tipo: Carta
+  • Destinatário: João Silva
+  • Endereço: Rua das Flores, 123
+  • Preço: R$ 2,00
+```
