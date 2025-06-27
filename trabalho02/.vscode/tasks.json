@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Servidor RMI Correios",
+			"type": "shell",
+			"command": "mvn",
+			"args": [
+				"exec:java",
+				"-Dexec.mainClass=com.example.correios.app.ServidorRMI"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
