@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<estoque><aparelho><id>0</id><nome>teste</nome><marca>marca</marca><preco>10.0</preco><categoria>cat teste</categoria><deposito>dep teste</deposito></aparelho><aparelho><id>1</id><nome>Switch OLED</nome><marca>Nintendo</marca><preco>2800.0</preco><categoria>Video Games</categoria><deposito>Amazon</deposito></aparelho></estoque>
