@@ -1,7 +1,5 @@
 package com.ufc.correios.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Carta {
     private String codigo;
     private String destinatario;
