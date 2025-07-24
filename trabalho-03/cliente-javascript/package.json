@@ -1,0 +1,13 @@
+{
+  "name": "cliente-correios-js",
+  "version": "1.0.0",
+  "description": "Cliente JavaScript para Sistema de Correios",
+  "main": "cliente.js",
+  "scripts": {
+    "start": "node cliente.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "readline-sync": "^1.4.10"
+  }
+}
