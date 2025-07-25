@@ -2,8 +2,8 @@ const axios = require("axios");
 const readlineSync = require("readline-sync");
 
 class ClienteCorreios {
-  // constructor(baseURL = "http://127.0.0.1:8000") {
-  constructor(baseURL = "http://172.25.207.252:8000") {
+  constructor(baseURL = "http://127.0.0.1:8000") {
+    // constructor(baseURL = "http://172.25.207.252:8000") {
     this.api = axios.create({
       baseURL: baseURL,
       timeout: 5000,
